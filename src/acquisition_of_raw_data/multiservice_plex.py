@@ -46,7 +46,7 @@ class AsyncServiceProxy(object):
             headers=None, callback=None):
         """Create an asynchronous service proxy."""
 
-        self.executor = ThreadPoolExecutor(max_workers=1)
+        self.executor = ThreadPoolExecutor(max_workers=10)
         self.service_proxy = rospy.ServiceProxy(
                 service_name,
                 service_type,
@@ -65,21 +65,32 @@ class AsyncServiceProxy(object):
 
 
 class MultiServiceCaller:
+    """MultiServiceCaller
+
+        Calls multiple services in parallel (non-blocking)
+        
+    """
     def __init__(self, list_services_, srvMsgType = Empty(), srvMsgTypeResponse = EmptyResponse()):
         rospy.logwarn_once("this can be quite slow. also maybe the services are blocking, ..")
         self.list_of_services = {}
         self.error_list =[]
+        self.wait_for_responses = False ## if set to true, it is very slow
         self.response = srvMsgTypeResponse
         for a_srv_name in list_services_:
             self.list_of_services.update({a_srv_name:AsyncServiceProxy(a_srv_name, srvMsgType )})
     def __call__(self, srvMsg):
         response_list = []
         self.error_list =[]
+
         for a_srv_name, a_srv in self.list_of_services.items():
             try:
                 rospy.loginfo(f"calling service {a_srv_name} with msg {srvMsg}")
-                response_list.append(a_srv(srvMsg))
-            except Exception as e:
+                a_response = a_srv(srvMsg)
+                if self.wait_for_responses:
+                    response_list.append(a_response.result())
+                else:
+                    response_list.append(a_response)
+            except rospy.ServiceException as e:
                 rospy.logerr(f"failed to call srv {a_srv_name}")
                 self.error_list.append(a_srv_name+"error: %s"%e)
         rospy.loginfo("done.")
