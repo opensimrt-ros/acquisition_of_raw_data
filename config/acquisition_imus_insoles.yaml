@@ -1,6 +1,7 @@
 other:
-  - rosrun rqt_runtime_monitor rqt_runtime_monitor
-  - rosrun rqt_reconfigure rqt_reconfigure
+  - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_minimal.perspective
+  #- rosrun rqt_runtime_monitor rqt_runtime_monitor
+  #- rosrun rqt_reconfigure rqt_reconfigure  
   - roslaunch osrt_ros vis_ik.launch
   - roslaunch republisher republisher_insoles.launch --wait
  

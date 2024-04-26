@@ -84,7 +84,7 @@ class MultiServiceCaller:
 
         for a_srv_name, a_srv in self.list_of_services.items():
             try:
-                rospy.loginfo(f"calling service {a_srv_name} with msg {srvMsg}")
+                rospy.loginfo(f"calling service {a_srv_name} with msg:\n==\n{srvMsg}\n==\n")
                 a_response = a_srv(srvMsg)
                 if self.wait_for_responses:
                     response_list.append(a_response.result())

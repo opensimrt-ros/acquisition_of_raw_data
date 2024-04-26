@@ -14,6 +14,7 @@ start_directory="/catkin_ws/src/ros_biomech"
 class TmuxManager:
     def __init__(self,session_name="test"):
         self.name = session_name
+        self.created_windows = []
         self.srv = libtmux.Server()
     def create_session(self, session_name=None, initial_command=None):
         #self.srv.cmd('new-session', '-d', '-P', '-F#{session_id}','-n',self.name).stdout[0]
@@ -29,7 +30,9 @@ class TmuxManager:
         ## this doesnt work
         #self.srv.cmd('set-option' ,'-g', 'default-shell', '"/usr/bin/bash','--rcfile','~/.bashrc_ws.sh"')
     def new_tab(self,window_name=""):
-        self.srv.cmd('new-window','-P','-n',f"{window_name}")
+        #self.srv.cmd('new-window','-P','-n',f"{window_name}")
+        self.created_windows.append(self.session.new_window(window_name, start_directory=start_directory))
+        #TODO: I need to put this window on the created windows list, not the number...
     def attach(self):
         self.srv.cmd('-2','a','-t',self.name)
         #self.srv.attach_session(self.name)
@@ -44,7 +47,7 @@ class TmuxManager:
         pane2 = self.session.windows[num].split(direction=libtmux.constants.PaneDirection.Right)
         pane3 = self.session.windows[num].split(direction=libtmux.constants.PaneDirection.Right)
 
-        self.session.cmd('select-layout','even-horizontal')
+        pane0.cmd('select-layout','even-horizontal')
 
     def default_splits8(self,num):
         self.default_splits4(num)
@@ -53,11 +56,18 @@ class TmuxManager:
 
         return self.session.windows[num]
 
+    def close_own_windows(self):
+        for w in self.created_windows:
+            w.kill()
+
+
 def create_some_windows(window_dic={},some_manager=TmuxManager()):
+    k = len(some_manager.session.windows)
     for i, (keys, values) in enumerate(window_dic.items()):
         some_manager.new_tab(keys)
         #a.newsplit()
-        pp = some_manager.default_splits8(i+1)
+        window_index = i+k
+        pp = some_manager.default_splits8(window_index)
         print(pp)
         for j,cmd in enumerate(values):
             print(cmd)
