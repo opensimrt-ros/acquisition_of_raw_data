@@ -16,23 +16,26 @@ class TmuxManager:
         self.name = session_name
         self.created_windows = []
         self.srv = libtmux.Server()
+        self.default_window_name = "roscore"
+        ## this doesnt work
+        self.srv.cmd('set-option' ,'-g', 'default-shell', '"/usr/bin/bash","--rcfile","~/.bashrc_ws.sh"')
     def create_session(self, session_name=None, initial_command=None):
         #self.srv.cmd('new-session', '-d', '-P', '-F#{session_id}','-n',self.name).stdout[0]
         if session_name:
-            self.session = self.srv.new_session(session_name, start_directory=start_directory)
-        else:
-            self.session = self.srv.new_session(self.name,start_directory=start_directory)
+            self.name = session_name
+
+        self.session = self.srv.new_session(self.name,start_directory=start_directory, window_name=self.default_window_name)
         if initial_command:
             rospy.loginfo("initial_command:%s"%initial_command)
+            self.session.from_session_id
             self.session.active_window.active_pane.send_keys(initial_command, enter=True)
         else:
             rospy.logwarn_once("no initial command set")
-        ## this doesnt work
-        #self.srv.cmd('set-option' ,'-g', 'default-shell', '"/usr/bin/bash','--rcfile','~/.bashrc_ws.sh"')
+        self.close_pane = self.session.active_window.split(direction=libtmux.constants.PaneDirection.Right)
+        self.close_pane.send_keys("rosrun tmux_session_core close_tmux_button.py", enter=True)
+
     def new_tab(self,window_name=""):
-        #self.srv.cmd('new-window','-P','-n',f"{window_name}")
         self.created_windows.append(self.session.new_window(window_name, start_directory=start_directory))
-        #TODO: I need to put this window on the created windows list, not the number...
     def attach(self):
         self.srv.cmd('-2','a','-t',self.name)
         #self.srv.attach_session(self.name)
@@ -68,14 +71,16 @@ def create_some_windows(window_dic={},some_manager=TmuxManager()):
         #a.newsplit()
         window_index = i+k
         pp = some_manager.default_splits8(window_index)
-        print(pp)
+        #print(pp)
+
         for j,cmd in enumerate(values):
-            print(cmd)
+            #print(cmd)
             pp.panes[j].send_keys(cmd, enter=True)
 
-
+    pp.select()
 
 if __name__ == "__main__":
+    print("being executed!")
     a = TmuxManager()
     a.create_session("test")
     create_some_windows(window_dic=window_dic_,some_manager=a)
