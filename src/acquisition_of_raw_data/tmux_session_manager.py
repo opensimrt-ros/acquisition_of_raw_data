@@ -18,7 +18,7 @@ class TmuxManager:
         self.srv = libtmux.Server()
         self.default_window_name = "roscore"
         ## this doesnt work
-        self.srv.cmd('set-option' ,'-g', 'default-shell', '"/usr/bin/bash","--rcfile","~/.bashrc_ws.sh"')
+        #self.srv.cmd('set-option' ,'-g', 'default-shell', '"/usr/bin/bash","--rcfile","~/.bashrc_ws.sh"')
     def create_session(self, session_name=None, initial_command=None):
         #self.srv.cmd('new-session', '-d', '-P', '-F#{session_id}','-n',self.name).stdout[0]
         if session_name:
@@ -31,8 +31,8 @@ class TmuxManager:
             self.session.active_window.active_pane.send_keys(initial_command, enter=True)
         else:
             rospy.logwarn_once("no initial command set")
-        self.close_pane = self.session.active_window.split(direction=libtmux.constants.PaneDirection.Right)
-        self.close_pane.send_keys("rosrun tmux_session_core close_tmux_button.py", enter=True)
+        self.close_pane = self.session.active_window.split_window(vertical=True)
+        #self.close_pane.send_keys("rosrun tmux_session_core close_tmux_button.py", enter=True)
 
     def new_tab(self,window_name=""):
         self.created_windows.append(self.session.new_window(window_name, start_directory=start_directory))
@@ -46,16 +46,18 @@ class TmuxManager:
     def default_splits4(self,num=0):
 
         pane0 = self.session.windows[num].active_pane
-        pane1 = self.session.windows[num].split(direction=libtmux.constants.PaneDirection.Right)
-        pane2 = self.session.windows[num].split(direction=libtmux.constants.PaneDirection.Right)
-        pane3 = self.session.windows[num].split(direction=libtmux.constants.PaneDirection.Right)
+        pane1 = self.session.windows[num].split_window(vertical=True)
+        pane2 = self.session.windows[num].split_window(vertical=True)
+
+        pane3 = self.session.windows[num].split_window(vertical=True)
+
 
         pane0.cmd('select-layout','even-horizontal')
 
     def default_splits8(self,num):
         self.default_splits4(num)
         for pane in self.session.windows[num].panes:
-            pane.split(direction=libtmux.constants.PaneDirection.Below)
+            pane.split_window()
 
         return self.session.windows[num]
 
