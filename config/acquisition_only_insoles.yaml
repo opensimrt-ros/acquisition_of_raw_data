@@ -1,0 +1,6 @@
+main_nodes:
+  - roslaunch moticon_insoles show_urdf.launch
+  - roslaunch moticon_insoles read_sdk.launch tf_prefix:=ik/ --wait
+  - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_minimal.perspective
+  - roslaunch republisher republisher_insoles.launch --wait
+
