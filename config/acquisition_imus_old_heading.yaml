@@ -6,4 +6,5 @@ main_nodes:
   - rosrun rqt_runtime_monitor rqt_runtime_monitor
   - rosrun rqt_reconfigure rqt_reconfigure
   - roslaunch osrt_ros vis_ik.launch
+  - rviz -d /catkin_ws/src/ros_biomech/ximu3_ros/ximu_line.rviz 
 ##"rosrun rqt_graph rqt_graph"
