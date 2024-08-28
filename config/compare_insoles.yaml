@@ -1,0 +1,11 @@
+other:
+  - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_minimal.perspective
+  #- rosrun rqt_runtime_monitor rqt_runtime_monitor
+  #- rosrun rqt_reconfigure rqt_reconfigure  
+  - roslaunch republisher republisher_insoles.launch use_imu_for_insole_orientation:=true --wait
+ 
+main_nodes:
+  - roslaunch moticon_insoles show_urdf.launch ignore_insole_imu_for_vis:=false
+  - roslaunch ximu3_ros ximu_feet.launch do_calibration:=true wait_to_start:=true
+  - roslaunch moticon_insoles read_sdk.launch --wait
+
