@@ -2,6 +2,7 @@ other:
   - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_minimal.perspective
   #- rosrun rqt_runtime_monitor rqt_runtime_monitor
   #- rosrun rqt_reconfigure rqt_reconfigure  
+  - rqt_plot /ximu_talus_r/imu/angular_velocity/y /right/imu_raw/angular_velocity/y
   - roslaunch republisher republisher_insoles.launch use_imu_for_insole_orientation:=true --wait
  
 main_nodes:
