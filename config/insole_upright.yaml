@@ -1,13 +1,16 @@
 
 other:
-  - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_knee_and_ankle.perspective
+  - rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_idk.perspective
   #- rqt --perspective-file /catkin_ws/src/ros_biomech/acquisition_state_machines/acquisition_of_raw_data/Acquisition_minimal.perspective
   #- rosrun rqt_runtime_monitor rqt_runtime_monitor
   #- rosrun rqt_reconfigure rqt_reconfigure  
   - roslaunch republisher republisher_insoles.launch --wait
 ##"rosrun rqt_graph rqt_graph"
   - rviz -d /catkin_ws/src/ros_biomech/ximu3_ros/ximu_line.rviz 
-
+  - roslaunch plotjuggler_ros plotjuggler.launch
+  - roslaunch diagnostics_schema everything.launch
+  - rosrun activity_detector walking_id_detector.py _side:=left
+  - rosrun activity_detector walking_id_detector.py _side:=right
 
 main_nodes:
   - roslaunch test_moticon_insoles show_urdf_everything.launch use_gui:=false

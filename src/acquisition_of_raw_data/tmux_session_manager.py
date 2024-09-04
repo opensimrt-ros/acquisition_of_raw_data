@@ -63,6 +63,9 @@ class TmuxManager:
 
     def close_own_windows(self):
         for w in self.created_windows:
+            for p in w.panes:
+                p.send_keys("C-c", enter=True)
+                ## I hope it will close eventually...
             w.kill()
 
 
