@@ -7,7 +7,7 @@ other:
   - roslaunch republisher republisher_insoles.launch --wait
 ##"rosrun rqt_graph rqt_graph"
   - rviz -d /catkin_ws/src/ros_biomech/ximu3_ros/ximu_line.rviz 
-  - roslaunch plotjuggler_ros plotjuggler.launch
+  - rosrun plotjuggler plotjuggler --layout /catkin_ws/plotjuggler_layout.xml --start_streamer libDataStreamROS
   - roslaunch diagnostics_schema everything.launch
   - rosrun activity_detector walking_id_detector.py _side:=left
   - rosrun activity_detector walking_id_detector.py _side:=right
@@ -18,5 +18,5 @@ main_nodes:
   - roslaunch ximu3_ros ximu_lower_upright.launch do_calibration:=true wait_to_start:=true
   - roslaunch osrt_ros t46.launch bypass_heading_computation:=false heading_debug:=0 visualise:=false orientation_server_type:=tf
   - roslaunch osrt_ros vis_ik.launch
-  - roslaunch osrt_ros id_async_filtered2.launch get_second_label:=false left_foot_tf_name:=left_cop_filtered right_foot_tf_name:=right_cop_filtered max_buffer_length:=1000 ik_delay:=0.26 --wait 
+  - roslaunch osrt_ros id_async_filtered2.launch get_second_label:=false left_foot_tf_name:=left_cop_filtered right_foot_tf_name:=right_cop_filtered max_buffer_length:=1000 ik_delay:=0.16 --wait 
   - roslaunch moticon_insoles read_sdk.launch tf_prefix:=ik/ --wait
