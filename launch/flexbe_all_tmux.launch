@@ -8,7 +8,7 @@
 		<param name="initial_cmd" value="roslaunch flexbe_app $(arg init)"/>
 	</node>
 
-	<node name="close_session" type="close_tmux_button.py" pkg="tmux_session_core" >
+	<node name="close_session" type="close_tmux_button.py" pkg="tmux_session_core" output="screen">
 		<param name="session_name" value="$(arg session_name)"/>
 
 	</node>
