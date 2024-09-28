@@ -4,11 +4,11 @@ imu_viz:
 
 imu_nodes:
 
-  - roslaunch ximu3_ros lower_torso.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_pelvis.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_femur_r.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_femur_l.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_tibia_r.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_tibia_l.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_talus_r.launch do_calibration:=true wait_to_start:=true
-  - roslaunch ximu3_ros lower_talus_l.launch do_calibration:=true wait_to_start:=true
+  - roslaunch ximu3_ros lower_torso.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_pelvis.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_femur_r.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_femur_l.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_tibia_r.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_tibia_l.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_talus_r.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS
+  - roslaunch ximu3_ros lower_talus_l.launch do_calibration:=true wait_to_start:=$WAIT_TO_START dummy_publisher:=$DUMMY_IMUS

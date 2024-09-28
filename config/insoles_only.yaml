@@ -1,0 +1,7 @@
+insole_nodes:
+  - roslaunch moticon_insoles read_sdk.launch tf_prefix:=ik/ --wait
+  - rosrun plotjuggler plotjuggler --layout /catkin_ws/plotjuggler_layout.xml --start_streamer libDataStreamROS
+  - roslaunch diagnostics_schema everything.launch
+  - rosrun activity_detector walking_id_detector.py _side:=left
+  - rosrun activity_detector walking_id_detector.py _side:=right
+  - roslaunch republisher republisher_insoles.launch --wait

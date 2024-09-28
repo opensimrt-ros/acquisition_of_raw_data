@@ -1,0 +1,2 @@
+vicon_control:
+  - rosrun vicon_sync remote_start_node

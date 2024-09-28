@@ -1,8 +1,8 @@
 main_nodes:
   - roslaunch test_moticon_insoles show_urdf_everything.launch use_gui:=false
 #"roslaunch ximu3_ros ximu_lower.launch do_calibration:=true parent_frame_id:=subject_heading wait_to_start:=true"
-  - roslaunch osrt_ros t46.launch bypass_heading_computation:=false heading_debug:=0 visualise:=false orientation_server_type:=tf
+  - roslaunch osrt_ros t46.launch bypass_heading_computation:=false heading_debug:=0 visualise:=false orientation_server_type:=tf model_file:=$MODEL_FILE
   - rosrun rqt_runtime_monitor rqt_runtime_monitor
   - rosrun rqt_reconfigure rqt_reconfigure
-  - roslaunch osrt_ros vis_ik.launch
+  - roslaunch osrt_ros vis_ik.launch model_file:=$MODEL_FILE
 ##"rosrun rqt_graph rqt_graph"

@@ -1,0 +1,3 @@
+so_nodes:
+  - roslaunch osrt_ros vis_so_rr_multi.launch model_file:=$MODEL_FILE 
+  - roslaunch osrt_ros so_round_robin_filtered_multi.launch n_proc:=$NUM_PROC_SO model_file:=$MODEL_FILE moment_arm_library_path:=$MOMENT_ARM_LIB
