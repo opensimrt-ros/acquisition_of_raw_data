@@ -1,2 +1,2 @@
 vicon_control:
-  - roslaunch vicon_sync actual_vicon_commander.launch remove_path_prefix:=$REMOVE append_path_prefix:=$APPEND 
+  - roslaunch vicon_sync actual_vicon_commander.launch remove_path_prefix:=$REMOVE append_path_prefix:=$APPEND port:=$VICON_PORT vicon_ip:=$VICON_IP 

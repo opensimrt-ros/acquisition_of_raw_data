@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<launch>
+	<arg name="init" value="flexbe_full.launch"/>
+	<arg name="session_name" value="testtt"/>
+
+	<node name="tmux_ss" type="tmux_session_manager_node.py" pkg="tmux_launch" output="screen">
+		<param name="session_name" value="$(arg session_name)"/>
+		<param name="initial_cmd" value="roslaunch flexbe_app $(arg init)"/>
+	</node>
+
+	<node name="close_session" type="close_tmux_button.py" pkg="tmux_session_core" output="screen">
+		<param name="session_name" value="$(arg session_name)"/>
+
+	</node>
+	<node name="load_behavior" type="rostopic" pkg="rostopic" output="screen" args="pub /flexbe/uicommand flexbe_msgs/UICommand '{command: &quot;load acquire_imu_and_ik&quot;, key: &quot;&quot;}' "/>
+
+</launch>
+
