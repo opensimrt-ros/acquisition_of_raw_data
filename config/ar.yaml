@@ -1,0 +1,5 @@
+ar_nodes:
+  - roslaunch brio_cam brio.launch
+  - roslaunch brio_cam ar_only_thorax.launch
+  - roslaunch ar_test brio_video_stream.launch video_stream_provider:=$CAM_DEV
+  - ROS_NAMESPACE=usb_cam_brio rosrun image_proc image_proc
