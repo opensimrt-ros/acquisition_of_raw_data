@@ -12,7 +12,7 @@
 		<param name="session_name" value="$(arg session_name)"/>
 
 	</node>
-	<node name="load_behavior" type="rostopic" pkg="rostopic" output="screen" args="pub /flexbe/uicommand flexbe_msgs/UICommand '{command: &quot;load acquire_imu_and_ik&quot;, key: &quot;&quot;}' "/>
+	<node name="load_behavior" type="rostopic" pkg="rostopic" output="screen" args="pub /flexbe/uicommand flexbe_msgs/UICommand '{command: &quot;load Acquire_everything&quot;, key: &quot;&quot;}' "/>
 
 </launch>
 
