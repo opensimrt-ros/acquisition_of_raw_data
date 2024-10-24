@@ -70,11 +70,11 @@ class MultiServiceCaller:
         Calls multiple services in parallel (non-blocking)
         
     """
-    def __init__(self, list_services_, srvMsgType = Empty(), srvMsgTypeResponse = EmptyResponse()):
+    def __init__(self, list_services_, srvMsgType = Empty(), srvMsgTypeResponse = EmptyResponse(), wait_for_responses = False):
         rospy.logwarn_once("this can be quite slow. also maybe the services are blocking, ..")
         self.list_of_services = {}
         self.error_list =[]
-        self.wait_for_responses = False ## if set to true, it is very slow
+        self.wait_for_responses = wait_for_responses ## if set to true, it is very slow
         self.response = srvMsgTypeResponse
         for a_srv_name in list_services_:
             self.list_of_services.update({a_srv_name:AsyncServiceProxy(a_srv_name, srvMsgType )})
